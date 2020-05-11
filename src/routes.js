@@ -1,5 +1,6 @@
 const express = require('express');
 
+
 const EspecialistaController = require('./controllers/EspecialistaController');
 //const MedicoController = require('./controllers/MedicoController');
 
@@ -11,4 +12,4 @@ const routes = express.Router();
 routes.get('/especialidade', EspecialistaController.index);
 routes.post('/especialidade', EspecialistaController.create); 
 
-    module.exports = routes;
+module.exports = routes;

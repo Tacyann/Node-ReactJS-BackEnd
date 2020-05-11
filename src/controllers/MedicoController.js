@@ -17,7 +17,7 @@ module.exports = {
     await connection('medico').insert({
         nomeMedico,
         CRM,
-        idEspecialidadeo,
+        idEspecialidade,
     })   
     
         return response.json({idEspecialidade}); 
