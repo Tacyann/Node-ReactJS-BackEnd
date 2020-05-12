@@ -17,7 +17,7 @@ module.exports = {
         
     async create(request, response){ 
     try{
-    const { name, CRM } = request.body;  
+    const { name, CRM, idEspecialidade } = request.body;  
     const  idMedico = crypto.randomBytes(4).toString('HEX');
     await connection('medico').insert({
             idMedico,
