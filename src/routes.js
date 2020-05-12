@@ -8,6 +8,7 @@ const routes = express.Router();
 routes.get('/especialidade', EspecialistaController.index);
 routes.post('/especialidade', EspecialistaController.create); 
 routes.post('/medico', MedicoController.create);
+routes.get('/medico', MedicoController.index);
 
 
 
