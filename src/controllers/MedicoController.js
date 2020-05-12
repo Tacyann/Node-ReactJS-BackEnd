@@ -1,25 +1,37 @@
 const crypto = require('crypto');
 const connection = require('../database/connection');
-const EspecialistaController = require('./controllers/EspecialistaController');
+const EspecialistaController = require('../controllers/EspecialistaController');
+
+
 module.exports = {
     async index (request, response){
-        
-        const medico = await connection('medico').select('*');
-
-        return response.json(medico);
+        try {  
+            const medico = await connection('medico').select('*');
+            return response.json(medico);
+            }catch(e){
+                console.log(e);
+                console.log("Não foi possível consultar os médicos!");
+                return response.json({mensagem: "Não foi possível consultar os médicos!"})
+            }
     },
-
-    async create(request, response){
-
+        
+    async create(request, response){ 
+    try{
     const { name, CRM } = request.body;  
-    const  idEspecialidade = crypto.randomBytes(4).toString('HEX');
-
+    const  idMedico = crypto.randomBytes(4).toString('HEX');
     await connection('medico').insert({
-        nomeMedico,
-        CRM,
-        idEspecialidade,
-    })   
-    
-        return response.json({idEspecialidade}); 
+            idMedico,
+            name,
+            CRM,
+            idEspecialidade,
+        })
+        
+            return response.json({idMedico}); 
+    } catch{
+        console.log(e);
+        console.log("Não foi possível cadastrar médico!");
+        return response.json({mensagem: "Não foi possível cadastrar médico!"}) 
     }
+},
+     
 };
