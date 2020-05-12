@@ -11,7 +11,7 @@ module.exports = {
             }catch(e){
                 console.log(e);
                 console.log("Não foi possível consultar os médicos!");
-                return response.json({mensagem: "Não foi possível consultar os médicos!"})
+                return response.json({mensagem: "Não foi possível consultar os médico!"})
             }
     },
         
