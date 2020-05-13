@@ -36,9 +36,19 @@ module.exports = {
         }
     },
 
-    async delete(request, response){
-        const{idEspecialidade} = request.params;
-        
+    async delete(request, response) {
+        const { idEndereco } = request.params;
+
+        const paciente = await connection('paciente').first('endereco_id').where('endereco_id', idEndereco);
+        const endereco_id = { paciente };
+        //console.log(medico.especialidade_id);
+        if (paciente.endereco_id != "") {
+            return response.status(401).json({ error: "Operação não permitida." })
+        }
+
+        await connection('endereco').where('endereco_id', idEndereco).delete("*");
+        //console.log(connection);
+        return response.status(204).send();
     },
 
     async update(request, response) {

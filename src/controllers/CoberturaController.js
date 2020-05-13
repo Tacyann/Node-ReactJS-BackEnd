@@ -34,9 +34,19 @@ module.exports = {
         }
     },
 
-    async delete(request, response){
-        const{idEspecialidade} = request.params;
-        
+    async delete(request, response) {
+        const { idCobertura } = request.params;
+
+        const consulta = await connection('consulta').first('cobertura_id').where('cobertura_id', idCobertura);
+        const cobertura_id = { consulta };
+        //console.log(medico.especialidade_id);
+        if (consulta.cobertura_id != "") {
+            return response.status(401).json({ error: "Operação não permitida." })
+        }
+
+        await connection('cobertura').where('idCobertura', idCobertura).delete("*");
+        //console.log(connection);
+        return response.status(204).send();
     },
 
     async update(request, response) {
