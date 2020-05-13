@@ -40,13 +40,43 @@ module.exports = {
     async delete(request, response) {
         const { idPaciente } = request.params;// eu vou pegar o id que vem da minha routa de parametros
 
-        const paciente = await connection('paciente').where('idPaciente', idPaciente).delete("*");
-
-        if (!paciente) {
+        const paciente = await connection('paciente').where('idPaciente', idPaciente).select("*");
+        if (paciente.length == 0) {
             return response.status(401).json({ error: "Operação não permitida." })
         }
-     
+
+        await connection('paciente').where('idPaciente', idPaciente).delete("*");
+
         return response.status(204).send();
     },
+
+    async update(request, response) {
+        try {
+            const { idPaciente } = request.params;// eu vou pegar o id que vem da minha routa de parametros
+            const { nomePaciente, datNascimento, telPaciente, RGPaciente, CPFPaciente, endereco_id } = request.body;
+
+            const paciente = await connection('paciente').where('idPaciente ', idPaciente).select("*");
+            if (paciente.length == 0) {
+                return response.status(401).json({ error: "Operação não permitida." })
+            }
+
+            await connection('paciente').where('idPaciente ', idPaciente)
+                .update({
+                    idPaciente,
+                    nomePaciente,
+                    datNascimento,
+                    telPaciente,
+                    RGPaciente,
+                    CPFPaciente,
+                    endereco_id,
+                });
+            return response.json(paciente);
+        } catch (e) {
+            console.log(e);
+            console.log("Não foi possível alterar o paciente!");
+            return response.json({ mensagem: "Não foi possível alterar o paciente!" })
+        }
+    },
+
 
 };

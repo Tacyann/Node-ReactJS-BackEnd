@@ -37,5 +37,28 @@ module.exports = {
     async delete(request, response){
         const{idEspecialidade} = request.params;
         
-    }
+    },
+
+    async update(request, response) {
+        try {
+            const { idCobertura } = request.params;// eu vou pegar o id que vem da minha routa de parametros
+            const { descCobertura} = request.body;
+
+            const cobertura = await connection('cobertura').where('idCobertura ', idCobertura).select("*");
+            if (cobertura.length == 0) {
+                return response.status(401).json({ error: "Operação não permitida." })
+            }
+
+            await connection('cobertura').where('idCobertura', idCobertura)
+                .update({
+                    idCobertura,
+                    descCobertura,
+                });
+            return response.json(cobertura);
+        } catch (e) {
+            console.log(e);
+            console.log("Não foi possível alterar a cobertura!");
+            return response.json({ mensagem: "Não foi possível alterar a cobertura!" })
+        }
+    },
 };

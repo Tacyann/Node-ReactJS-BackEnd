@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 const connection = require('../database/connection');
-const EspecialistaController = require('./EspecialistaController');
+const EspecialidadeController = require('./EspecialidadeController');
 
 
 module.exports = {

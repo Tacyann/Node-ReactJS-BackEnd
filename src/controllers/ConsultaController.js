@@ -39,7 +39,7 @@ module.exports = {
 
     async delete(request, response) {
         const { idConsulta } = request.body;// eu vou pegar o id que vem da minha routa de parametros
-   
+
         const medico = await connection('consulta')
             .where('id', idConsulta)
             .select('especialidade_id');
@@ -49,14 +49,29 @@ module.exports = {
         return response.status(204).send();
     },
 
-    async update (request, response) {
+    async update(request, response) {
         try {
-            const medico = await connection('consulta').select('*');
+            const { idConsulta } = request.params;// eu vou pegar o id que vem da minha routa de parametros
+            const { dataConsulta, medico_id, paciente_id, cobertura_id } = request.body;
+
+            const consulta = await connection('consulta').where('idConsulta ', idConsulta).select("*");
+            if (consulta.length == 0) {
+                return response.status(401).json({ error: "Operação não permitida." })
+            }
+
+            await connection('consulta').where('idConsulta ', idConsulta)
+                .update({
+                    idConsulta,
+                    dataConsulta,
+                    medico_id,
+                    paciente_id,
+                    cobertura_id,
+                });
             return response.json(consulta);
         } catch (e) {
             console.log(e);
-            console.log("Não foi possível alterar a consulta!");
-            return response.json({ mensagem: "Não foi possível alterar a consulta!" })
+            console.log("Não foi possível alterar consulta!");
+            return response.json({ mensagem: "Não foi possível alterar consulta!" })
         }
     },
 

@@ -39,5 +39,30 @@ module.exports = {
     async delete(request, response){
         const{idEspecialidade} = request.params;
         
-    }
+    },
+
+    async update(request, response) {
+        try {
+            const { idEndereco } = request.params;// eu vou pegar o id que vem da minha routa de parametros
+            const { Rua, Bairro, Numero} = request.body;
+
+            const endereco = await connection('endereco').where('idEndereco ', idEndereco).select("*");
+            if (endereco.length == 0) {
+                return response.status(401).json({ error: "Operação não permitida." })
+            }
+
+            await connection('endereco').where('idEndereco', idEndereco)
+                .update({
+                    idEndereco,
+                    Rua,
+                    Bairro,
+                    Numero,
+                });
+            return response.json(endereco);
+        } catch (e) {
+            console.log(e);
+            console.log("Não foi possível alterar o endereço!");
+            return response.json({ mensagem: "Não foi possível alterar o endereço!" })
+        }
+    },
 };

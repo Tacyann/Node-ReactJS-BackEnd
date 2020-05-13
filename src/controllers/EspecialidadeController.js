@@ -39,14 +39,38 @@ module.exports = {
     },
 
     async delete(request, response) {
-        const { idEspecialidade } = request.params;// eu vou pegar o id que vem da minha routa de parametros
+        const { idEspecialidade} = request.params;// eu vou pegar o id que vem da minha routa de parametros
 
-        const medico = await connection('medico').where('idEspecialidade', idEspecialidade).delete("*");
-
-        if (!medico) {
+        const especialidade = await connection('especialidade').where('idEspecialidade', idEspecialidade).select("*");
+        if (especialidade.especialidade_id === especialidade_id ) {
             return response.status(401).json({ error: "Operação não permitida." })
         }
-     
-        return response.status(204).send({ error: "Especialidade Apagada." });
+
+        await connection('especialidade').where('idEspecialidade', idEspecialidade).delete("*");
+
+        return response.status(204).send();
+    },
+
+    async update(request, response) {
+        try {
+            const { idEspecialidade } = request.params;// eu vou pegar o id que vem da minha routa de parametros
+            const { descEspecialidade} = request.body;
+
+            const especialidade = await connection('especialidade').where('idEspecialidade ', idEspecialidade).select("*");
+            if (especialidade.length == 0) {
+                return response.status(401).json({ error: "Operação não permitida." })
+            }
+
+            await connection('especialidade').where('idEspecialidade ', idEspecialidade)
+                .update({
+                    idEspecialidade,
+                    descEspecialidade
+                });
+            return response.json(especialidade);
+        } catch (e) {
+            console.log(e);
+            console.log("Não foi possível alterar a especialidade!");
+            return response.json({ mensagem: "Não foi possível alterar a especialidade!" })
+        }
     },
 };
