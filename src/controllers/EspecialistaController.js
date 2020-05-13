@@ -38,8 +38,15 @@ module.exports = {
         }
     },
 
-    async delete(request, response){
-        const{idEspecialidade} = request.params;
-        
-    }
+    async delete(request, response) {
+        const { idEspecialidade } = request.params;// eu vou pegar o id que vem da minha routa de parametros
+
+        const medico = await connection('medico').where('idEspecialidade', idEspecialidade).delete("*");
+
+        if (!medico) {
+            return response.status(401).json({ error: "Operação não permitida." })
+        }
+     
+        return response.status(204).send({ error: "Especialidade Apagada." });
+    },
 };

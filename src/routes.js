@@ -15,7 +15,7 @@ routes.post('/especialidade', EspecialistaController.create);
 
 routes.post('/medico', MedicoController.create);
 routes.get('/medico', MedicoController.index);
-routes.delete('/medico/:id', MedicoController.delete);
+routes.delete('/medico/:idMedico', MedicoController.delete);
 
 routes.post('/endereco', EnderecoController.create);
 routes.get('/endereco', EnderecoController.index);
@@ -23,7 +23,7 @@ routes.get('/endereco', EnderecoController.index);
 routes.post('/cobertura', CoberturaController.create);
 routes.get('/cobertura', CoberturaController.index);
 
-routes.post('/cobertura', CoberturaController.create);
-routes.get('/cobertura', CoberturaController.index);
+routes.post('/consulta', ConsultaController.create);
+routes.get('/consulta', ConsultaController.index);
 
 module.exports = routes;
