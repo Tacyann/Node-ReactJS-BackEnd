@@ -16,6 +16,7 @@ routes.post('/especialidade', EspecialistaController.create);
 routes.post('/medico', MedicoController.create);
 routes.get('/medico', MedicoController.index);
 routes.delete('/medico/:idMedico', MedicoController.delete);
+routes.put('/medico/:idMedico', MedicoController.update);
 
 routes.post('/endereco', EnderecoController.create);
 routes.get('/endereco', EnderecoController.index);

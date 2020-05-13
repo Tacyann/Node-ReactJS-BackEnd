@@ -37,18 +37,32 @@ module.exports = {
     async delete(request, response) {
         const { idMedico } = request.params;// eu vou pegar o id que vem da minha routa de parametros
 
-        const medico = await connection('medico').where('idMedico', idMedico).delete("*");
-
-        if (!medico) {
+        const medico = await connection('medico').where('idMedico', idMedico).select("*");
+        if (medico.length == 0) {
             return response.status(401).json({ error: "Operação não permitida." })
         }
-     
+
+        await connection('medico').where('idMedico', idMedico).delete("*");
+
         return response.status(204).send();
     },
 
-    async update (request, response) {
+    async update(request, response) {
         try {
-            const medico = await connection('medico').select('*');
+            const { idMedico } = request.params;// eu vou pegar o id que vem da minha routa de parametros
+            const { nomeMedico, CRM, especialidade_id } = request.body;
+
+            const medico = await connection('medico').where('idMedico', idMedico).select("*");
+            if (medico.length == 0) {
+                return response.status(401).json({ error: "Operação não permitida." })
+            }
+
+            await connection('medico').where('idMedico', idMedico)
+                .update({
+                    nomeMedico,
+                    CRM,
+                    especialidade_id,
+                });
             return response.json(medico);
         } catch (e) {
             console.log(e);
