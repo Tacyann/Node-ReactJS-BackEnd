@@ -37,4 +37,9 @@ module.exports = {
             return response.json({ mensagem: "Não foi possível cadastrar especialidade!" })
         }
     },
+
+    async delete(request, response){
+        const{idEspecialidade} = request.params;
+        
+    }
 };
