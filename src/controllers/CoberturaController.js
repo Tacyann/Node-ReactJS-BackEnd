@@ -1,5 +1,6 @@
 const crypto = require('crypto');
 const connection = require('../database/connection');
+const ConsultaController = require('./ConsultaController');
 
 module.exports = {
 
@@ -18,7 +19,11 @@ module.exports = {
 
     async create(request, response) {
         try {
-            const { descCobertura} = request.body;
+            const { descCobertura } = request.body;
+            const cobertura = await connection('cobertura').select('*').where({ descCobertura });
+            if (cobertura.length !== 0) {
+                return response.json({ mensagem: "Essa cobertura já encontra-se cadastrada!" })
+            }
             const idCobertura = crypto.randomBytes(4).toString('HEX');
 
             await connection('cobertura').insert({
@@ -26,8 +31,8 @@ module.exports = {
                 descCobertura,
             })
 
-            return response.json({ idCobertura});
-        } catch(e){
+            return response.json({ idCobertura });
+        } catch (e) {
             console.log(e);
             console.log("Não foi possível cadastrar cobertura!");
             return response.json({ mensagem: "Não foi possível cadastrar cobertura!" })
@@ -35,19 +40,19 @@ module.exports = {
     },
 
     async delete(request, response) {
-        const { idCobertura } = request.params;
+        const { idPaciente } = request.params;// eu vou pegar o id que vem da minha routa de parametros
 
-        const consulta = await connection('consulta').first('cobertura_id').where('cobertura_id', idCobertura);
-        const cobertura_id = { consulta };
-        //console.log(medico.especialidade_id);
-        if (consulta.cobertura_id != "") {
+        const paciente = await connection('paciente').where('idPaciente', idPaciente).select("*");
+        if (paciente.length == 0) {
             return response.status(401).json({ error: "Operação não permitida." })
         }
 
-        await connection('cobertura').where('idCobertura', idCobertura).delete("*");
-        //console.log(connection);
+        await connection('paciente').where('idPaciente', idPaciente).delete("*");
+
         return response.status(204).send();
     },
+
+
 
     async update(request, response) {
         try {
