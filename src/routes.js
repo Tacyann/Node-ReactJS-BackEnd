@@ -6,7 +6,10 @@ const PacienteController = require('./controllers/PacienteController');
 const CoberturaController = require('./controllers/CoberturaController');
 const ConsultaController = require('./controllers/ConsultaController');
 const SessionController = require('./controllers/SessionController');
-
+const ReceitaController = require('./controllers/ReceitaController');
+const PagamentoController = require('./controllers/PagamentoController');
+const ExameController = require('./controllers/ExameController');
+const FormasController = require('./controllers/FormasController');
 
 //desacoplando o modo de Rotas no express em uma nova variavel
 const routes = express.Router();
@@ -43,5 +46,27 @@ routes.post('/consulta', ConsultaController.create);
 routes.get('/consulta', ConsultaController.index);
 routes.delete('/consulta/:idConsulta', ConsultaController.delete);
 routes.put('/consulta/:idConsulta', ConsultaController.update);
+
+
+routes.post('/receita', ReceitaController.create);
+routes.get('/receita', ReceitaController.index);
+routes.delete('/receita/:idReceita', ReceitaController.delete);
+routes.put('/receita/:idReceita', ReceitaController.update);
+
+routes.post('/pagamento', PagamentoController.create);
+routes.get('/pagamento', PagamentoController.index);
+routes.delete('/pagamento/:idPagamento', PagamentoController.delete);
+routes.put('/pagamento/:idPagamento', PagamentoController.update);
+
+routes.post('/exame', ExameController.create);
+routes.get('/exame', ExameController.index);
+routes.delete('/exame/:idReqExame', ExameController.delete);
+routes.put('/exame/:idReqExame', ExameController.update);
+
+
+routes.post('/formas', FormasController.create);
+routes.get('/formas', FormasController.index);
+routes.delete('/formas/:idFomasPagamento', FormasController.delete);
+routes.put('/formas/:idFomasPagamento', FormasController.update);
 
 module.exports = routes;

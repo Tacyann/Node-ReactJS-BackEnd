@@ -40,14 +40,13 @@ module.exports = {
     },
 
     async delete(request, response) {
-        const { idPaciente } = request.params;// eu vou pegar o id que vem da minha routa de parametros
-
-        const paciente = await connection('paciente').where('idPaciente', idPaciente).select("*");
-        if (paciente.length == 0) {
+        const { idCobertura } = request.params;// eu vou pegar o id que vem da minha routa de parametros
+        const cobertura = await connection('cobertura').where('idCobertura', idCobertura).select("*");
+        if (cobertura.length == 0) {
             return response.status(401).json({ error: "Operação não permitida." })
         }
 
-        await connection('paciente').where('idPaciente', idPaciente).delete("*");
+        await connection('cobertura').where('idCobertura', idCobertura).delete("*");
 
         return response.status(204).send();
     },
