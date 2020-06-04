@@ -8,7 +8,7 @@ exports.up = function(knex) {
 
     table.string ('especialidade_id').notNullable();
     table.foreign('especialidade_id').references('idEspecialidade').inTable('especialidade');
-
+    knex.select('descEspecialidade').from('especialidade');
 
   });
 };
