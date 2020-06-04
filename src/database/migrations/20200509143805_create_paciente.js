@@ -9,7 +9,6 @@ exports.up = function(knex) {
         table.integer('CPFPaciente').notNullable();
 
        table.string ('endereco_id').notNullable();
-
        table.foreign('endereco_id').references('idEndereco').inTable('endereco');
 
       });
