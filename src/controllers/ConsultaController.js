@@ -19,7 +19,7 @@ module.exports = {
 
     async create(request, response) {
         try {
-            const { dataConsulta, medico_id, paciente_id, cobertura_id } = request.body;
+            const { dataConsulta, medico_id, paciente_id, cobertura_id, pagamento_id, receita_id, exame_id } = request.body;
             const idConsulta = crypto.randomBytes(4).toString('HEX');
             await connection('consulta').insert({
                 idConsulta,
@@ -27,6 +27,9 @@ module.exports = {
                 medico_id,
                 paciente_id,
                 cobertura_id,
+                pagamento_id,
+                receita_id,
+                exame_id,
             })
 
             return response.json({ idConsulta });
@@ -43,7 +46,7 @@ module.exports = {
         const paciente = await connection('paciente').first('paciente_id').where('paciente_id', idConsulta);
         const paciente_id = { paciente };
         //console.log(medico.especialidade_id);
-        if (paciente.paciente_id!= "") {
+        if (paciente.paciente_id != "") {
             return response.status(401).json({ error: "Operação não permitida." })
         }
 
@@ -69,6 +72,9 @@ module.exports = {
                     medico_id,
                     paciente_id,
                     cobertura_id,
+                    pagamento_id,
+                    receita_id,
+                    exame_id,
                 });
             return response.json(consulta);
         } catch (e) {

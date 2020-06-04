@@ -4,6 +4,10 @@ exports.up = function(knex) {
         table.string('idPagamento').primary();
         table.decimal('valor').notNullable();
         table.date('datPagamento').notNullable();
+
+
+        
+    
       });
 };
 

@@ -11,6 +11,11 @@ exports.up = function(knex) {
         table.foreign('paciente_id').references('idPaciente').inTable('paciente');
         table.string ('cobertura_id').notNullable();
         table.foreign('cobertura_id').references('idCobertura').inTable('cobertura');
+        table.string ('receita_id').notNullable();
+        table.foreign('receita_id').references('idReceita').inTable('receitamedica');
+        table.string ('exame_id').notNullable();
+        table.foreign('exame_id').references('idReqExame').inTable('exame');
+    
     
     
       });
