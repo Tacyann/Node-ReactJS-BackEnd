@@ -7,10 +7,9 @@ exports.up = function(knex) {
         table.integer('telPaciente').notNullable();
         table.integer('RGPaciente').notNullable();
         table.integer('CPFPaciente').notNullable();
-
-       table.string ('endereco_id').notNullable();
-       table.foreign('endereco_id').references('idEndereco').inTable('endereco');
-
+        table.string('ruaPaciente').notNullable();
+        table.string('bairro').notNullable();
+        table.integer('numPaciente').notNullable();
       });
 };
 

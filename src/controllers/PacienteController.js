@@ -1,6 +1,5 @@
 const crypto = require('crypto');
 const connection = require('../database/connection');
-const EnderecoController = require('./EnderecoController');
 
 
 module.exports = {
@@ -17,7 +16,7 @@ module.exports = {
 
     async create(request, response) {
         try {
-            const { nomePaciente, datNascimento, telPaciente, RGPaciente, CPFPaciente, endereco_id } = request.body;
+            const { nomePaciente, datNascimento, telPaciente, RGPaciente, CPFPaciente, ruaPaciente, bairro, numPaciente } = request.body;
             const idPaciente = crypto.randomBytes(4).toString('HEX');
             await connection('paciente').insert({
                 idPaciente,
@@ -26,7 +25,10 @@ module.exports = {
                 telPaciente,
                 RGPaciente,
                 CPFPaciente,
-                endereco_id,
+                ruaPaciente,
+                bairro,
+                numPaciente,
+
             })
 
             return response.json({ idPaciente });
@@ -49,11 +51,11 @@ module.exports = {
 
         return response.status(204).send();
     },
-
+    
     async update(request, response) {
         try {
             const { idPaciente } = request.params;// eu vou pegar o id que vem da minha routa de parametros
-            const { nomePaciente, datNascimento, telPaciente, RGPaciente, CPFPaciente, endereco_id } = request.body;
+            const { nomePaciente, datNascimento, telPaciente, RGPaciente, CPFPaciente, ruaPaciente, bairro, numPaciente } = request.body;
 
             const paciente = await connection('paciente').where('idPaciente ', idPaciente).select("*");
             if (paciente.length == 0) {
@@ -68,7 +70,9 @@ module.exports = {
                     telPaciente,
                     RGPaciente,
                     CPFPaciente,
-                    endereco_id,
+                    ruaPaciente,
+                    bairro,
+                    numPaciente,
                 });
             return response.json(paciente);
         } catch (e) {
