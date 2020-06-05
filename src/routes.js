@@ -1,7 +1,6 @@
 const express = require('express');
 const EspecialidadeController = require('./controllers/EspecialidadeController');
 const MedicoController = require('./controllers/MedicoController');
-const EnderecoController = require('./controllers/EnderecoController');
 const PacienteController = require('./controllers/PacienteController');
 const CoberturaController = require('./controllers/CoberturaController');
 const ConsultaController = require('./controllers/ConsultaController');
@@ -25,11 +24,6 @@ routes.post('/medico', MedicoController.create);
 routes.get('/medico', MedicoController.index);
 routes.delete('/medico/:idMedico', MedicoController.delete);
 routes.put('/medico/:idMedico', MedicoController.update);
-
-routes.post('/endereco', EnderecoController.create);
-routes.get('/endereco', EnderecoController.index);
-routes.delete('/endereco/:idEndereco', EnderecoController.delete);
-routes.put('/endereco/:idEndereco', EnderecoController.update);
 
 routes.post('/paciente', PacienteController.create);
 routes.get('/paciente', PacienteController.index);
