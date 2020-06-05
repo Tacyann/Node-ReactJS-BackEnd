@@ -4,16 +4,20 @@ const MedicoController = require('./controllers/MedicoController');
 const PacienteController = require('./controllers/PacienteController');
 const CoberturaController = require('./controllers/CoberturaController');
 const ConsultaController = require('./controllers/ConsultaController');
-const SessionController = require('./controllers/SessionController');
+const SessionPacienteController = require('./controllers/SessionPacienteController');
+const SessionMedicoController = require('./controllers/SessionMedicoController');
 const ReceitaController = require('./controllers/ReceitaController');
 const PagamentoController = require('./controllers/PagamentoController');
 const ExameController = require('./controllers/ExameController');
 const FormasController = require('./controllers/FormasController');
 
+
 //desacoplando o modo de Rotas no express em uma nova variavel
 const routes = express.Router();
 
-routes.post('/session', SessionController.create);
+routes.post('/sessionpaci', SessionPacienteController.create);
+routes.post('/sessionmed', SessionMedicoController.create);
+
 
 routes.get('/especialidade', EspecialidadeController.index);
 routes.post('/especialidade', EspecialidadeController.create);
@@ -24,6 +28,8 @@ routes.post('/medico', MedicoController.create);
 routes.get('/medico', MedicoController.index);
 routes.delete('/medico/:idMedico', MedicoController.delete);
 routes.put('/medico/:idMedico', MedicoController.update);
+
+
 
 routes.post('/paciente', PacienteController.create);
 routes.get('/paciente', PacienteController.index);
