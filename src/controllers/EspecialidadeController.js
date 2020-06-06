@@ -42,10 +42,9 @@ module.exports = {
     async delete(request, response) {
         const { idEspecialidade } = request.params;
 
-        const medico = await connection('medico').first('especialidade_id').where('especialidade_id', idEspecialidade);
-        const especialidade_id = { medico };
+        const medico = await connection('medico').where('especialidade_id', idEspecialidade).first();
         //console.log(medico.especialidade_id);
-        if (medico.especialidade_id != "") {
+        if (medico) {
             return response.status(401).json({ error: "Operação não permitida." })
         }
 

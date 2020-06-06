@@ -37,17 +37,15 @@ module.exports = {
     },
 
     async delete(request, response) {
-        const { idConsulta } = request.params;
+        const { idConsulta } = request.params;// eu vou pegar o id que vem da minha routa de parametros
 
-        const paciente = await connection('paciente').first('paciente_id').where('paciente_id', idConsulta);
-        const paciente_id = { paciente };
-        //console.log(medico.especialidade_id);
-        if (paciente.paciente_id != "") {
+        const consulta = await connection('consulta').where('idConsulta', idConsulta).select("*");
+        if (consulta.length == 0) {
             return response.status(401).json({ error: "Operação não permitida." })
         }
 
         await connection('consulta').where('idConsulta', idConsulta).delete("*");
-        //console.log(connection);
+
         return response.status(204).send();
     },
 
