@@ -10,6 +10,9 @@ const ReceitaController = require('./controllers/ReceitaController');
 const PagamentoController = require('./controllers/PagamentoController');
 const ExameController = require('./controllers/ExameController');
 const FormasController = require('./controllers/FormasController');
+const ProfilePacienteController = require('./controllers/ProfilePacienteController');
+const ProfileMedicoController = require('./controllers/ProfileMedicoController');
+const AgendarConsultaController = require('./controllers/AgendarConsultaController');
 
 
 //desacoplando o modo de Rotas no express em uma nova variavel
@@ -18,6 +21,10 @@ const routes = express.Router();
 routes.post('/sessionpaci', SessionPacienteController.create);
 routes.post('/sessionmed', SessionMedicoController.create);
 
+routes.get('./profilepaci', ProfilePacienteController.index);
+routes.get('./profilemed', ProfileMedicoController.index);
+
+routes.post('/agendar', AgendarConsultaController.create);
 
 routes.get('/especialidade', EspecialidadeController.index);
 routes.post('/especialidade', EspecialidadeController.create);
@@ -28,7 +35,6 @@ routes.post('/medico', MedicoController.create);
 routes.get('/medico', MedicoController.index);
 routes.delete('/medico/:idMedico', MedicoController.delete);
 routes.put('/medico/:idMedico', MedicoController.update);
-
 
 
 routes.post('/paciente', PacienteController.create);

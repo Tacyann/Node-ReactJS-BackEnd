@@ -19,17 +19,13 @@ module.exports = {
 
     async create(request, response) {
         try {
-            const { dataConsulta, medico_id, paciente_id, cobertura_id, pagamento_id, receita_id, exame_id } = request.body;
+            const { dataConsulta, medico_id, paciente_id } = request.body;
             const idConsulta = crypto.randomBytes(4).toString('HEX');
             await connection('consulta').insert({
                 idConsulta,
                 dataConsulta,
                 medico_id,
                 paciente_id,
-                cobertura_id,
-                pagamento_id,
-                receita_id,
-                exame_id,
             })
 
             return response.json({ idConsulta });
@@ -58,7 +54,7 @@ module.exports = {
     async update(request, response) {
         try {
             const { idConsulta } = request.params;// eu vou pegar o id que vem da minha routa de parametros
-            const { dataConsulta, medico_id, paciente_id, cobertura_id } = request.body;
+            const { dataConsulta, medico_id, paciente_id } = request.body;
 
             const consulta = await connection('consulta').where('idConsulta ', idConsulta).select("*");
             if (consulta.length == 0) {
@@ -71,10 +67,6 @@ module.exports = {
                     dataConsulta,
                     medico_id,
                     paciente_id,
-                    cobertura_id,
-                    pagamento_id,
-                    receita_id,
-                    exame_id,
                 });
             return response.json(consulta);
         } catch (e) {

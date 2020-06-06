@@ -44,7 +44,7 @@ module.exports = {
 
         const medico = await connection('medico').first('especialidade_id').where('especialidade_id', idEspecialidade);
         const especialidade_id = { medico };
-        console.log(medico.especialidade_id);
+        //console.log(medico.especialidade_id);
         if (medico.especialidade_id != "") {
             return response.status(401).json({ error: "Operação não permitida." })
         }
