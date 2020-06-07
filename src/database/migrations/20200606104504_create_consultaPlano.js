@@ -2,7 +2,8 @@ exports.up = function(knex) {
     return knex.schema.createTable('plano', function(table){
     table.string('idConsulta').primary();
 
-    table.string ('idConsulta').notNullable();
+    table.string ('idcobertura').notNullable();
+    table.foreign('idcobertura').references('idcobertura').inTable('cobertura');
     table.foreign('idConsulta').references('idConsulta').inTable('consulta');
     });
 };

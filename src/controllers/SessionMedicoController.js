@@ -5,7 +5,7 @@ module.exports = {
 
     async create(request, response) {
         try {
-            const medico = await connection('medico').select('idMedico').first();
+            const medico = await connection('medico').select('nomeMedico').first();
             //console.log(paciente);
             if (!medico) {
                 return response.status(400).json({ error: 'ID não cadastrado!' });

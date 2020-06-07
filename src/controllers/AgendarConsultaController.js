@@ -12,12 +12,12 @@ module.exports = {
         const paciente_id = request.headers.authorization;
         //const paciente_id = crypto.randomBytes(4).toString('HEX');
 
-        const agenda = await connection('agendarconsulta').insert({
+        const [consultas] = await connection('consulta').insert({
             paciente_id,
             data_id,
             medico_id,
             consulta_id,
         });
-        return response.json({ agenda });
+        return response.json({ agendar });
     }
 }

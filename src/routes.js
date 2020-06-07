@@ -23,8 +23,8 @@ routes.post('/sessionpaci', SessionPacienteController.create);
 routes.post('/sessionmed', SessionMedicoController.create);
 routes.post('/session', SessionController.create);
 
-routes.get('./profilepaci', ProfilePacienteController.index);
-routes.get('./profilemed', ProfileMedicoController.index);
+routes.get('/profilepaci', ProfilePacienteController.index);
+routes.get('/profilemed', ProfileMedicoController.index);
 
 routes.post('/agendar', AgendarConsultaController.create);
 

@@ -5,7 +5,7 @@ module.exports = {
         const idMedico = request.headers.authorization;
 
         const consulta = await connection ('consulta')
-        .where('idMedico', idMedico)
+        .where('medico_id', idMedico)
         .select('*');
 
         return response.json(consulta);
