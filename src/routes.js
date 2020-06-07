@@ -6,6 +6,7 @@ const CoberturaController = require('./controllers/CoberturaController');
 const ConsultaController = require('./controllers/ConsultaController');
 const SessionPacienteController = require('./controllers/SessionPacienteController');
 const SessionMedicoController = require('./controllers/SessionMedicoController');
+const SessionController = require('./controllers/SessionController');
 const ReceitaController = require('./controllers/ReceitaController');
 const PagamentoController = require('./controllers/PagamentoController');
 const ExameController = require('./controllers/ExameController');
@@ -20,6 +21,7 @@ const routes = express.Router();
 
 routes.post('/sessionpaci', SessionPacienteController.create);
 routes.post('/sessionmed', SessionMedicoController.create);
+routes.post('/session', SessionController.create);
 
 routes.get('./profilepaci', ProfilePacienteController.index);
 routes.get('./profilemed', ProfileMedicoController.index);
