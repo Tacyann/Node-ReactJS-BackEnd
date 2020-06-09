@@ -4,11 +4,15 @@ const MedicoController = require('./MedicoController');
 module.exports = {
 
     async create(request, response) {
+        const { idMedico} = request.body;
+
         try {
-            const medico = await connection('medico').select('nomeMedico');
-            //console.log(paciente);
+            const medico = await connection('medico').where( 'idMedico', idMedico)
+            .select('nomeMedico')
+            .first();
+            //console.log(medico);
             if (!medico) {
-                return response.status(400).json({ error: 'ID não cadastrado!' });
+                return response.status(400).json({ error: 'Não foi encontrado Medico com esse ID' });
             }
 
             return response.json(medico);
