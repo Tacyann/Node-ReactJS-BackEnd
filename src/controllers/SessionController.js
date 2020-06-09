@@ -6,7 +6,7 @@ module.exports = {
 
     async create(request, response) {
         try {
-            const session = await connection('session').select('*').first();
+            const session = await connection('session').select('*');
             console.log(session);
             if (!session) {
                 return response.status(400).json({ error: 'ID não cadastrado!' });
