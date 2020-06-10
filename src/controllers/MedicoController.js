@@ -2,7 +2,6 @@ const crypto = require('crypto');
 const connection = require('../database/connection');
 const EspecialidadeController = require('./EspecialidadeController');
 
-
 module.exports = {
     async index(request, response) {
         try {
@@ -23,7 +22,7 @@ module.exports = {
                 idMedico,
                 nomeMedico,
                 CRM,
-                especialidade_id,
+                especialidade,
             })
 
             return response.json({ idMedico });

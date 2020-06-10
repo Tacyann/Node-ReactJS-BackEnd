@@ -4,20 +4,24 @@ const PacienteController = require('./PacienteController');
 
 module.exports = {
 
-    async create(request, response) {
-        try {
-            const session = await connection('session').select('*');
-            console.log(session);
-            if (!session) {
-                return response.status(400).json({ error: 'ID não cadastrado!' });
+ 
+        async create (request, response) {
+            const { idSession} = request.body;
+    
+            try {
+                const msessionedico = await connection('session').where( 'idSession', idSession)
+                .select('idSession')
+                .first();
+                //console.log(medico);
+                if (!session) {
+                    return response.status(400).json({ error: 'Não foi encontrado  ID' });
+                }  
+                return response.json(session);
+    
+            } catch (e) {
+                console.log(e);
+                console.log("Login não encontrado!");
+                return response.json({ mensagem: "Login não encontrado!" })
             }
-
-            return response.json(session);
-
-        } catch (e) {
-            console.log(e);
-            console.log("Login não encontrado!");
-            return response.json({ mensagem: "Login não encontrado!" })
         }
-    }
 }

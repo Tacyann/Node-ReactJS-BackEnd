@@ -27,6 +27,9 @@ routes.get('/profilepaci', ProfilePacienteController.index);
 routes.get('/profilemed', ProfileMedicoController.index);
 
 routes.post('/agendar', AgendarConsultaController.create);
+routes.get('/agendar', ConsultaController.index);
+routes.delete('/agendar/:idConsulta', ConsultaController.delete);
+routes.put('/agendar/:idConsulta', ConsultaController.update);
 
 routes.get('/especialidade', EspecialidadeController.index);
 routes.post('/especialidade', EspecialidadeController.create);
