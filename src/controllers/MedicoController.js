@@ -22,7 +22,7 @@ module.exports = {
                 idMedico,
                 nomeMedico,
                 CRM,
-                especialidade,
+                especialidade_id,
             })
 
             return response.json({ idMedico });
