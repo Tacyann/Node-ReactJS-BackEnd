@@ -20,7 +20,7 @@ module.exports = {
     async create(request, response) {
         
         try {
-            const { dataConsulta, medico_id, paciente_id } = request.body;
+            const { dataConsulta, medico_id, paciente_id, tipoConsulta, cobertura_id, forma_id, valorTotal} = request.body;
             const idConsulta = crypto.randomBytes(4).toString('HEX');
             
             await connection('consulta').insert({
@@ -28,7 +28,20 @@ module.exports = {
                 dataConsulta,
                 medico_id,
                 paciente_id,
-            })
+            });
+
+            if(tipoConsulta === 'PLANO') {
+                await connection('consultaPlano').insert({
+                    idConsulta,
+                    idcobertura: cobertura_id
+                });
+            } else {
+                await connection('consultaPlano').insert({
+                    idConsulta,
+                    valorTotal,
+                    forma_id
+                }); 
+            }
 
             return response.json({ idConsulta });
         } catch (e) {
