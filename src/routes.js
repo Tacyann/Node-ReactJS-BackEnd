@@ -44,6 +44,7 @@ routes.put('/medico/:idMedico', MedicoController.update);
 
 routes.post('/paciente', PacienteController.create);
 routes.get('/paciente', PacienteController.index);
+routes.get('/paciente/:idPaciente', PacienteController.getById);
 routes.delete('/paciente/:idPaciente', PacienteController.delete);
 routes.put('/paciente/:idPaciente', PacienteController.update);
 

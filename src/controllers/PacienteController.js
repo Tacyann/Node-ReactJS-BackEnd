@@ -14,6 +14,18 @@ module.exports = {
         }
     },
 
+    async getById(request, response) {
+        try {
+            const { idPaciente } = request.params;  
+            const paciente = await connection('paciente').where('idPaciente', idPaciente).select('*').first();
+            return response.json(paciente);
+        } catch (e) {
+            console.log(e);
+            console.log("Não foi possível consultar os pacientes!");
+            return response.json({ mensagem: "Não foi possível consultar os pacientes!" })
+        }
+    },
+
     async create(request, response) {
         try {
             const { nomePaciente, datNascimento, telPaciente, RGPaciente, CPFPaciente, ruaPaciente, bairro, numPaciente } = request.body;
